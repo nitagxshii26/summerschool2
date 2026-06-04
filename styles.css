@@ -154,3 +154,32 @@ header h1 {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
+
+/* AI Chat Section */
+.chat-section {
+  margin-top: 50px;
+  text-align: center;
+}
+
+#user-question {
+  width: 80%;
+  max-width: 500px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+#ask-btn {
+  padding: 10px 20px;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#ai-response {
+  margin-top: 20px;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -58,6 +58,43 @@ document.querySelectorAll('.view-btn').forEach(button => {
   });
 });
 
+// AI Chat functionality
+const askBtn = document.getElementById('ask-btn');
+const questionInput = document.getElementById('user-question');
+const responseContainer = document.getElementById('ai-response');
+
+if (askBtn) {
+  askBtn.addEventListener('click', async () => {
+    const question = questionInput.value.trim();
+    if (!question) {
+      responseContainer.textContent = 'Please enter a question';
+      return;
+    }
+
+    responseContainer.textContent = 'Thinking...';
+    try {
+      const response = await fetch('https://smeytdmsgiaygwvrtxbt.supabase.co/functions/v1/openrouter-answer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtZXl0ZG1zZ2lheWd3dnJ0eGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDI5NTgsImV4cCI6MjA5NjE3ODk1OH0.RYiS1EqdqgyRKLFBsrOWOtHnUaAfFzUGF2e8vbnm8pM'
+        },
+        body: JSON.stringify({ question })
+      });
+
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await response.json();
+      responseContainer.textContent = data.answer;
+    } catch (error) {
+      responseContainer.textContent = `Error: ${error.message}`;
+      console.error('Chat error:', error);
+    }
+  });
+}
+
 // Handle checkout button
 const checkoutBtn = document.getElementById('checkout-btn');
 if (checkoutBtn) {
